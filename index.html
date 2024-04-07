@@ -3,69 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Access Control</title>
-    <style>
-        /* CSS styles for layout and appearance */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            text-align: center;
-        }
-        #problem {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-        #answerInput {
-            padding: 8px;
-            margin-bottom: 20px;
-        }
-        #submitBtn {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #submitBtn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <title>Access Control Page</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to YouTube Access Control</h1>
-        <p>Solve the problem below to unlock access to YouTube:</p>
-        <p id="problem">What is 5 + 7?</p>
-        <input type="text" id="answerInput" placeholder="Enter your answer">
-        <button id="submitBtn">Submit</button>
-    </div>
+    <h1>Welcome to YouTube Access Control</h1>
+    <p>Solve the problem below to unlock access to YouTube:</p>
+    <p id="problem"></p>
+    <input type="text" id="answerInput" placeholder="Enter your answer">
+    <button id="submitBtn">Submit</button>
 
     <script>
-        // JavaScript code for handling user interactions and validation
-        document.getElementById('submitBtn').addEventListener('click', function() {
+        // Function to generate random numbers and display the problem
+        function generateProblem() {
+            const num1 = Math.floor(Math.random() * 10) + 1; // Generates a random number between 1 and 10
+            const num2 = Math.floor(Math.random() * 10) + 1; // Generates a random number between 1 and 10
+            const sum = num1 + num2;
+
+            document.getElementById('problem').textContent = ` ${num1} + ${num2}`;
+            return sum;
+        }
+
+        // Function to check if the answer is correct
+        function checkAnswer() {
             const answerInput = document.getElementById('answerInput');
             const userAnswer = parseInt(answerInput.value.trim(), 10);
 
-            // Check if the answer is correct
-            if (!isNaN(userAnswer) && userAnswer === correctsum) { // Assuming correct answer is 12
-                alert('Congratulations! You\'ve unlocked access to YouTube.');
-                // Redirect the user to YouTube
+            const correctSum = generateProblem(); // Generate new problem and get the correct answer
+            if (!isNaN(userAnswer) && userAnswer === correctSum) {
+                // Redirect to YouTube
                 window.location.href = 'https://www.youtube.com';
             } else {
                 alert('Incorrect answer. Please try again.');
                 // Clear the input field
                 answerInput.value = '';
             }
-        });
+        }
+
+        // Generate the initial problem when the page loads
+        generateProblem();
+
+        // Attach event listener to the submit button
+        document.getElementById('submitBtn').addEventListener('click', checkAnswer);
     </script>
 </body>
 </html>
